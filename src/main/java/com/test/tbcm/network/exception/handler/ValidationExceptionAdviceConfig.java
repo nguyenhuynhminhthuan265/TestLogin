@@ -37,7 +37,7 @@ public class ValidationExceptionAdviceConfig {
     @ExceptionHandler({AuthenticationException.class, BadCredentialsException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    Object handelAuthenticationException(AuthenticationException ex, HttpServletRequest request) {
+    Object handleAuthenticationException(AuthenticationException ex, HttpServletRequest request) {
         Message message = new Message();
         handlerError(ex, message);
         message.setCode(Constants.Messages.AUTHENTICATION_EXCEPTION);
@@ -76,6 +76,11 @@ public class ValidationExceptionAdviceConfig {
             case "UserNotFoundException":
                 codeError = Constants.Messages.USER_NOT_FOUND;
                 break;
+
+            case "RoleNotFoundException":
+                codeError = Constants.Messages.ROLE_NOT_FOUND;
+                break;
+
 
             default:
                 codeError = Constants.Messages.ERROR_NOT_FOUND;

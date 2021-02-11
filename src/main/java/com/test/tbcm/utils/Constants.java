@@ -30,19 +30,11 @@ public class Constants {
 
     }
 
-    public static class User {
-        public static final String UserDefault = "df_test_user";
-    }
-
     public static class Role {
         public static final String ROLE_ADMIN = "ADMIN";
         public static final String ROLE_MANAGER = "MANAGER";
         public static final String ROLE_USER = "USER";
 
-    }
-
-    public static class Time {
-        public static final Long TIME_TRANSACTION = 2l;
     }
 
 

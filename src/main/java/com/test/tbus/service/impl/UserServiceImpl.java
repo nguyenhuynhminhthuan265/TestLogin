@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findByToken(String token) {
-        return Optional.empty();
+        return userRepository.findByAccessTokenAndIsDelete(token, false);
     }
 
     @Override
