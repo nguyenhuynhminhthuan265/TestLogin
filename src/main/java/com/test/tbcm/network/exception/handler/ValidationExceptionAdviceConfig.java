@@ -12,6 +12,7 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,14 @@ public class ValidationExceptionAdviceConfig {
             message.setIntervalMessage(ex.getClass().getSimpleName());
         }
         return message;
+    }
+
+    @ExceptionHandler({InternalAuthenticationServiceException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    Object handleInternalAuthenticationServiceException(InternalAuthenticationServiceException ex, HttpServletRequest request) {
+        ex.printStackTrace();
+        return null;
     }
 
     @ExceptionHandler({AuthenticationException.class, BadCredentialsException.class})

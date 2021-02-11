@@ -1,11 +1,14 @@
 package com.test.tbus.service.impl;
 
+import com.test.tbcm.network.exception.notfound.RoleNotFoundException;
 import com.test.tbcm.network.exception.notfound.UserNotFoundException;
 import com.test.tbcm.utils.CPage;
 import com.test.tbcm.utils.Constants;
 import com.test.tbcm.utils.ModelMapperUtils;
 import com.test.tbus.model.dto.FullUserDto;
+import com.test.tbus.model.entity.Role;
 import com.test.tbus.model.entity.User;
+import com.test.tbus.repository.RoleRepository;
 import com.test.tbus.repository.UserRepository;
 import com.test.tbus.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     @Override
     public Page<User> get(int page, int offset) throws Exception {
@@ -48,6 +54,8 @@ public class UserServiceImpl implements UserService {
         String hashed = BCrypt.hashpw(dto.getPassword(), BCrypt.gensalt(12));
         System.out.println("password encoding: " + hashed);
         dto.setPassword(hashed);
+        Role role = roleRepository.findByNameContainingIgnoreCaseAndIsDelete(Constants.Role.ROLE_USER, false).orElseThrow(RoleNotFoundException::new);
+        dto.setIdRole(role.getId());
         return this.saveEntity(ModelMapperUtils.toEntity(dto, User.class));
     }
 

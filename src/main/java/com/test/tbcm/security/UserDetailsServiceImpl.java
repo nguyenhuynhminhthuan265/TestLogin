@@ -31,7 +31,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         System.out.println("===================>>>>>>>>>>>>>>>>>>>> loadUserByUsername");
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(user.get().getRole().getName()));
+        if (user.get().getRole() == null) {
+            authorities.add(new SimpleGrantedAuthority(""));
+        } else {
+            authorities.add(new SimpleGrantedAuthority(user.get().getRole().getName()));
+        }
+
         CustomUserDetails customUserDetails = new CustomUserDetails(user.get().getEmail(), user.get().getPassword(), authorities);
         return customUserDetails;
     }

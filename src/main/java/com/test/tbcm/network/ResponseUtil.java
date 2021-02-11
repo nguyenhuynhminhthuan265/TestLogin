@@ -124,7 +124,7 @@ public class ResponseUtil {
     public Message getMessages(HttpServletRequest request, Message message) {
         try {
             String headerAcceptLanguage = request.getHeader(HEADER_ACCEPT_LANGUAGE);
-            if (headerAcceptLanguage == null) headerAcceptLanguage = LANGUAGE_END;
+            if (headerAcceptLanguage == null) headerAcceptLanguage = LANGUAGE_VI;
             MessageEntity messageEntity = messageEntityRepository.findById(message.code).orElseThrow(MessageEntityNotFoundException::new);
             // Lấy được ngôn ngữ
             if (message.code != 0) {

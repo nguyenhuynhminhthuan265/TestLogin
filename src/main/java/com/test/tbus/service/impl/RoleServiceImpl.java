@@ -79,4 +79,9 @@ public class RoleServiceImpl implements RoleService {
     public Boolean existsById(Long id) {
         return roleRepository.existsById(id);
     }
+
+    @Override
+    public Optional<Role> findByName(String name) {
+        return roleRepository.findByNameContainingIgnoreCaseAndIsDelete(name, false);
+    }
 }
