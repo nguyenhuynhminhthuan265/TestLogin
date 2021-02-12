@@ -3,6 +3,7 @@ package com.test.tbus.controller;
 import com.test.tbcm.config.Route;
 import com.test.tbcm.network.*;
 import com.test.tbcm.network.exception.notfound.UserNotFoundException;
+import com.test.tbcm.utils.DateUtil;
 import com.test.tbcm.utils.LoggerHelperUtils;
 import com.test.tbcm.utils.ModelMapperUtils;
 import com.test.tbus.model.dto.FullUserDto;
@@ -47,7 +48,7 @@ public class UserController {
         Message message = new Message();
         User entity = userServiceImpl.findById(id).orElseThrow(UserNotFoundException::new);
         FullUserDto2 dto = ModelMapperUtils.toDto(entity, FullUserDto2.class);
-
+        dto.setTimeExpiredToken(DateUtil.convertZonedDateTimeToString(dto.getExpiredToken()));
         message.setCode(MessagesUtils.MESSAGE_GET_SUCCESS);
         return responseUtil.buildSuccessResponse(request, dto, message);
     }

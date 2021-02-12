@@ -24,5 +24,7 @@ public class FullUserDto2 extends UserDto {
 
     private ZonedDateTime expiredToken;
 
+    private String timeExpiredToken;
+
 
 }
